@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hozin Eruda Pro — Bookmarklet Generator</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 20px; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.sub { color: #94a3b8; font-size: 14px; margin: 0 0 20px; }
+  .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .card h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; margin: 0 0 12px; }
+  label.field { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; }
+  input[type=text] { width: 100%; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; border-radius: 8px; padding: 10px; font-size: 14px; }
+  .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .tools label { display: flex; align-items: center; gap: 8px; font-size: 14px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+  .tools input { accent-color: #38bdf8; }
+  button.gen { width: 100%; background: #0284c7; color: #fff; border: 0; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: bold; cursor: pointer; }
+  button.gen:active { background: #0369a1; }
+  #out { width: 100%; height: 120px; background: #0f172a; border: 1px solid #334155; color: #a5f3fc; border-radius: 8px; padding: 10px; font-size: 12px; font-family: monospace; }
+  .row { display: flex; gap: 8px; margin-top: 10px; }
+  .row button { flex: 1; background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 8px; padding: 10px; cursor: pointer; }
+  .hint { font-size: 13px; color: #94a3b8; line-height: 1.6; }
+  .hint code { background: #0f172a; padding: 2px 6px; border-radius: 4px; color: #a5f3fc; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🛠️ Hozin Eruda Pro</h1>
+  <p class="sub">Bookmarklet Generator — suntik eruda ke situs mana pun dari bookmark bar HP.</p>
+
+  <div class="card">
+    <h2>1. URL eruda.js</h2>
+    <label class="field">Ganti dengan URL file eruda.js hasil build-mu (atau CDN):</label>
+    <input type="text" id="srcUrl" value="https://cdn.jsdelivr.net/gh/hozin-king/eruda@main/dist/eruda.js">
+  </div>
+
+  <div class="card">
+    <h2>2. Tool yang auto-terbuka</h2>
+    <div class="tools" id="toolList"></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Generate</h2>
+    <button class="gen" id="genBtn">⚡ Generate Bookmarklet</button>
+    <div style="margin-top:12px">
+      <label class="field">Hasil (drag ke bookmark bar, atau copy):</label>
+      <textarea id="out" readonly placeholder="Klik generate dulu…"></textarea>
+      <div class="row">
+        <button id="copyBtn">📋 Copy</button>
+        <button id="testBtn">🧪 Test (buka di tab ini)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card hint">
+    <h2>Cara pakai di HP</h2>
+    1. Copy hasil bookmarklet.<br>
+    2. Buat bookmark baru di browser HP, isi URL-nya dengan hasil tadi.<br>
+    3. Buka situs target → tap bookmark → panel eruda muncul.<br>
+    4. Catatan: situs dengan <code>Content-Security-Policy</code> ketat bisa memblokir bookmarklet.
+  </div>
+</div>
+
+<script>
+const TOOLS = [
+  ['hub','🏠 Hub'], ['console','📟 Console'], ['elements','🧩 Elements'],
+  ['network','🌐 Network'], ['resources','💾 Resources'], ['sources','📜 Sources'],
+  ['info','ℹ️ Info'], ['snippets','✂️ Snippets'],
+  ['curl','📋 cURL'], ['interceptor','✏️ Interceptor'], ['mock','🎭 Mock'],
+  ['websocket','🔌 WebSocket'], ['har','📦 HAR'], ['api-tester','🚀 API Tester'],
+  ['media','🎬 Media'], ['fps','🎞️ FPS'], ['perf','⚡ Perf'], ['page','📄 Page'],
+  ['keys','🔑 Keys'], ['licenses','📜 Licenses'], ['trackers','🕵️ Trackers'],
+  ['cookies','🍪 Cookies'], ['indexeddb','🗄️ IndexedDB'], ['recorder','🎥 Recorder'],
+  ['userscripts','💉 Userscripts'], ['beautify','✨ Beautify'], ['a11y','♿ A11y'],
+];
+const list = document.getElementById('toolList');
+TOOLS.forEach(([name, label], i) => {
+  const lab = document.createElement('label');
+  lab.innerHTML = `<input type="checkbox" value="${name}"${i === 0 ? ' checked' : ''}> ${label}`;
+  list.appendChild(lab);
+});
+
+document.getElementById('genBtn').onclick = () => {
+  const src = document.getElementById('srcUrl').value.trim();
+  const checked = [...list.querySelectorAll('input:checked')].map(el => el.value);
+  const show = checked[0] || 'hub';
+  const code = `(function(){` +
+    `if(window.eruda){window.eruda.show('${show}');return;}` +
+    `var s=document.createElement('script');` +
+    `s.src='${src}';` +
+    `s.onload=function(){window.eruda.init();window.eruda.show('${show}');};` +
+    `s.onerror=function(){alert('Gagal load eruda.js — cek URL');};` +
+    `document.body.appendChild(s);` +
+  `})();`;
+  document.getElementById('out').value = 'javascript:' + code;
+};
+
+document.getElementById('copyBtn').onclick = async () => {
+  const out = document.getElementById('out');
+  try { await navigator.clipboard.writeText(out.value); alert('Tersalin!'); }
+  catch (e) { out.select(); document.execCommand('copy'); alert('Tersalin!'); }
+};
+
+document.getElementById('testBtn').onclick = () => {
+  const v = document.getElementById('out').value;
+  if (v) location.href = v;
+};
+</script>
+</body>
+</html>

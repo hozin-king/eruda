@@ -1,0 +1,131 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#indexeddb {
+  @include overflow-auto(y);
+  .wrap {
+    padding: 10px;
+  }
+  .head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+  .back-btn {
+    @include control();
+    font-size: 12px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+  }
+  .head-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--foreground);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .empty {
+    text-align: center;
+    padding: 24px 16px;
+    font-size: 13px;
+    color: var(--foreground);
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+  .summary {
+    font-size: 12px;
+    color: var(--foreground);
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .db-row,
+  .store-row,
+  .rec-row {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 6px;
+    background: var(--background);
+    cursor: pointer;
+  }
+  .dbname,
+  .storename {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--foreground);
+    word-break: break-all;
+  }
+  .reckey {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--accent);
+    word-break: break-all;
+    margin-bottom: 4px;
+  }
+  .recprev {
+    font-family: monospace;
+    font-size: 11px;
+    color: var(--foreground);
+    opacity: 0.7;
+    word-break: break-all;
+  }
+  .meta {
+    font-size: 11px;
+    color: var(--foreground);
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+  .detail-meta {
+    font-size: 12px;
+    color: var(--foreground);
+    margin-bottom: 8px;
+    span {
+      font-family: monospace;
+      color: var(--accent);
+      word-break: break-all;
+    }
+  }
+  .detail-json {
+    font-family: monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    margin: 0 0 10px;
+    max-height: 300px;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .detail-actions {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+    button {
+      @include control();
+      font-size: 12px;
+      flex: 1;
+    }
+  }
+  .edit-area {
+    width: 100%;
+    min-height: 140px;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    color: var(--foreground);
+    margin-bottom: 6px;
+    box-sizing: border-box;
+  }
+  .save-btn {
+    @include control();
+    width: 100%;
+  }
+}

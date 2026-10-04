@@ -1,0 +1,124 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#a11y {
+  @include overflow-auto(y);
+  padding: $padding;
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .btn {
+    @include control();
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--darker-background);
+    color: var(--foreground);
+    font-size: $font-size;
+    cursor: pointer;
+    &:active {
+      background: var(--highlight);
+      color: var(--select-foreground);
+    }
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    &.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+  }
+  .note {
+    font-size: $font-size-s;
+    color: var(--foreground);
+    opacity: 0.7;
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+  }
+  .empty {
+    padding: 24px 12px;
+    text-align: center;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+  .score-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: var(--darker-background);
+  }
+  .score {
+    font-size: 34px;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .grade {
+    font-size: $font-size;
+    font-weight: bold;
+    color: var(--primary);
+  }
+  .count {
+    font-size: $font-size-s;
+    opacity: 0.7;
+  }
+  .vio {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .vio-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--darker-background);
+  }
+  .badge {
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: $font-size-s;
+    color: #fff;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .rule {
+    font-family: monospace;
+    font-size: $font-size-s;
+    color: var(--primary);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nodes {
+    font-size: $font-size-s;
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+  .vio-desc {
+    padding: 8px 10px;
+    font-size: $font-size-s;
+    line-height: 1.5;
+  }
+  .vio-actions {
+    padding: 0 10px 10px;
+  }
+}
+
+.safe-area #a11y {
+  @include safe-area(padding-bottom, 10px);
+}

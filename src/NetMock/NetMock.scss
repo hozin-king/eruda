@@ -1,0 +1,162 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#mock {
+  .wrap {
+    @include absolute();
+    @include overflow-auto(y);
+    background: var(--background);
+    color: var(--foreground);
+    font-size: $font-size-s;
+  }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hint {
+    opacity: 0.6;
+    font-size: 12px;
+  }
+  .switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    input {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .sec {
+    padding: 8px 8px 4px;
+    font-weight: bold;
+  }
+  .form {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .f-pattern,
+    select,
+    textarea {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: $font-size-s;
+      color: var(--foreground);
+      background: var(--darker-background);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    textarea {
+      resize: vertical;
+      font-family: monospace;
+    }
+  }
+  .f-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    .f-status {
+      width: 80px;
+      padding: 6px 8px;
+      font-size: $font-size-s;
+      color: var(--foreground);
+      background: var(--darker-background);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    select {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: $font-size-s;
+      color: var(--foreground);
+      background: var(--darker-background);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+    }
+  }
+  .btn {
+    padding: 6px 12px;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    &:active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+  .btn.xs {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  .list {
+    max-height: 40%;
+    @include overflow-auto(y);
+    border-bottom: 1px solid var(--border);
+  }
+  .empty {
+    padding: 20px 16px;
+    text-align: center;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+  .empty.sm {
+    padding: 12px;
+  }
+  .rule {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rule-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .rule-pattern {
+    font-family: monospace;
+    word-break: break-all;
+  }
+  .rule-desc {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+  .mocked-list {
+    padding-bottom: 16px;
+  }
+  .mocked-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .status {
+    font-weight: bold;
+  }
+  .ok {
+    color: #4caf50;
+  }
+  .url {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+}

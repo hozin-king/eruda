@@ -9,6 +9,26 @@ import Resources from './Resources/Resources'
 import Info from './Info/Info'
 import Sources from './Sources/Sources'
 import Settings from './Settings/Settings'
+import HozinHub from './HozinHub/HozinHub'
+import CurlExport from './CurlExport/CurlExport'
+import ReqInterceptor from './ReqInterceptor/ReqInterceptor'
+import NetMock from './NetMock/NetMock'
+import WsInspector from './WsInspector/WsInspector'
+import HarExport from './HarExport/HarExport'
+import ApiTester from './ApiTester/ApiTester'
+import MediaSniffer from './MediaSniffer/MediaSniffer'
+import FpsMeter from './FpsMeter/FpsMeter'
+import PerfAudit from './PerfAudit/PerfAudit'
+import PageAudit from './PageAudit/PageAudit'
+import KeyScanner from './KeyScanner/KeyScanner'
+import LicenseInspector from './LicenseInspector/LicenseInspector'
+import TrackerDetector from './TrackerDetector/TrackerDetector'
+import CookieGetter from './CookieGetter/CookieGetter'
+import IdbInspector from './IdbInspector/IdbInspector'
+import SessionRecorder from './SessionRecorder/SessionRecorder'
+import UserscriptMgr from './UserscriptMgr/UserscriptMgr'
+import JsBeautifier from './JsBeautifier/JsBeautifier'
+import A11yAudit from './A11yAudit/A11yAudit'
 import emitter from './lib/emitter'
 import logger from './lib/logger'
 import * as util from './lib/util'
@@ -29,6 +49,31 @@ import isEqual from 'licia/isEqual'
 import extend from 'licia/extend'
 import evalCss from './lib/evalCss'
 import chobitsu from './lib/chobitsu'
+
+/* Hozin Eruda Pro: custom tools registry (tab name -> class).
+ * Built-in tools resolve via this[upperFirst(name)]; these resolve here. */
+const HOZIN_TOOLS = {
+  hub: HozinHub,
+  curl: CurlExport,
+  interceptor: ReqInterceptor,
+  mock: NetMock,
+  websocket: WsInspector,
+  har: HarExport,
+  'api-tester': ApiTester,
+  media: MediaSniffer,
+  fps: FpsMeter,
+  perf: PerfAudit,
+  page: PageAudit,
+  keys: KeyScanner,
+  licenses: LicenseInspector,
+  trackers: TrackerDetector,
+  cookies: CookieGetter,
+  indexeddb: IdbInspector,
+  recorder: SessionRecorder,
+  userscripts: UserscriptMgr,
+  beautify: JsBeautifier,
+  a11y: A11yAudit,
+}
 
 export default {
   init({
@@ -97,6 +142,27 @@ export default {
   Info,
   Snippets,
   Settings,
+  /* Hozin Eruda Pro tools, exposed for eruda.add(new eruda.CurlExport()) etc. */
+  HozinHub,
+  CurlExport,
+  ReqInterceptor,
+  NetMock,
+  WsInspector,
+  HarExport,
+  ApiTester,
+  MediaSniffer,
+  FpsMeter,
+  PerfAudit,
+  PageAudit,
+  KeyScanner,
+  LicenseInspector,
+  TrackerDetector,
+  CookieGetter,
+  IdbInspector,
+  SessionRecorder,
+  UserscriptMgr,
+  JsBeautifier,
+  A11yAudit,
   get(name) {
     if (!this._checkInit()) return
 
@@ -289,6 +355,7 @@ export default {
   },
   _initTools(
     tool = [
+      'hub',
       'console',
       'elements',
       'network',
@@ -296,6 +363,31 @@ export default {
       'sources',
       'info',
       'snippets',
+      /* Hozin Eruda Pro — Jaringan */
+      'curl',
+      'interceptor',
+      'mock',
+      'websocket',
+      'har',
+      'api-tester',
+      /* Hozin Eruda Pro — Media */
+      'media',
+      /* Hozin Eruda Pro — Performa */
+      'fps',
+      'perf',
+      'page',
+      /* Hozin Eruda Pro — Keamanan */
+      'keys',
+      'licenses',
+      'trackers',
+      /* Hozin Eruda Pro — Penyimpanan */
+      'cookies',
+      'indexeddb',
+      /* Hozin Eruda Pro — Produktivitas */
+      'recorder',
+      'userscripts',
+      'beautify',
+      'a11y',
     ]
   ) {
     tool = toArr(tool)
@@ -303,7 +395,7 @@ export default {
     const devTools = this._devTools
 
     tool.forEach((name) => {
-      const Tool = this[upperFirst(name)]
+      const Tool = this[upperFirst(name)] || HOZIN_TOOLS[name]
       try {
         if (Tool) devTools.add(new Tool())
       } catch (e) {

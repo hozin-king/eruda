@@ -1,0 +1,130 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#page {
+  @include overflow-auto(y);
+  padding: 8px;
+
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  .btn-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .sum-item {
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sum-total {
+    grid-column: 1 / -1;
+  }
+
+  .sum-k {
+    font-size: 11px;
+    color: var(--foreground);
+  }
+
+  .sum-v {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cat {
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 6px;
+  }
+
+  .cat-head {
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  .items {
+    border-top: 1px solid var(--border);
+    max-height: 320px;
+    @include overflow-auto(y);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .url {
+    flex: 1;
+    min-width: 0;
+    color: var(--primary);
+    word-break: break-all;
+    user-select: text;
+  }
+
+  .dim {
+    color: var(--foreground);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .size {
+    flex-shrink: 0;
+    color: var(--foreground);
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+  }
+
+  .empty {
+    padding: 12px;
+    font-size: 12px;
+    color: var(--foreground);
+  }
+}

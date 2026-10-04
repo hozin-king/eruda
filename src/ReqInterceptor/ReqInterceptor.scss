@@ -1,0 +1,127 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#interceptor {
+  .wrap {
+    @include absolute();
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: $font-size-s;
+  }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .counter {
+    margin-left: auto;
+    opacity: 0.7;
+    font-size: 12px;
+  }
+  .switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    input {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .chk {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    input {
+      width: 15px;
+      height: 15px;
+    }
+  }
+  .form {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    input[type='text'],
+    .f-pattern,
+    select,
+    textarea {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: $font-size-s;
+      color: var(--foreground);
+      background: var(--darker-background);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    textarea {
+      resize: vertical;
+      font-family: monospace;
+    }
+  }
+  .f-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    select {
+      width: auto;
+      flex: 1;
+    }
+  }
+  .btn {
+    padding: 6px 12px;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    &:active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+  .btn.xs {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  .list {
+    flex: 1;
+    @include overflow-auto(y);
+  }
+  .empty {
+    padding: 32px 16px;
+    text-align: center;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+  .rule {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rule-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .rule-pattern {
+    font-family: monospace;
+    word-break: break-all;
+  }
+  .rule-desc {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+}

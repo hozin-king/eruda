@@ -1,0 +1,110 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#beautify {
+  @include overflow-auto(y);
+  padding: $padding;
+  .label {
+    display: block;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    opacity: 0.8;
+    margin: 8px 0 4px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  .label-inline {
+    font-size: $font-size-s;
+    color: var(--foreground);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .select,
+  .input {
+    @include control();
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: $font-size;
+  }
+  .input {
+    font-family: monospace;
+    font-size: $font-size-s;
+    resize: vertical;
+  }
+  .select-sm {
+    @include control();
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--background);
+    color: var(--foreground);
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .btn {
+    @include control();
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--darker-background);
+    color: var(--foreground);
+    font-size: $font-size;
+    cursor: pointer;
+    &:active {
+      background: var(--highlight);
+      color: var(--select-foreground);
+    }
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    &.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+  }
+  .outwrap {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .empty {
+    padding: 24px 12px;
+    text-align: center;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    opacity: 0.7;
+  }
+  .output {
+    @include overflow-auto(both);
+    margin: 0;
+    padding: 10px;
+    max-height: 420px;
+    font-family: monospace;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    white-space: pre;
+  }
+  .trunc {
+    padding: 8px 10px;
+    font-size: $font-size-s;
+    background: var(--darker-background);
+    color: var(--primary);
+  }
+}
+
+.safe-area #beautify {
+  @include safe-area(padding-bottom, 10px);
+}

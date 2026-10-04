@@ -12,6 +12,7 @@ import { isErudaEl } from '../lib/util'
 import evalCss from '../lib/evalCss'
 
 let style = null
+let unblockStyle = null
 
 export default [
   {
@@ -155,6 +156,116 @@ export default [
       loadPlugin('touches')
     },
     desc: 'Visualize screen touches',
+  },
+  {
+    name: '🇮🇩 Paksa dark mode',
+    fn() {
+      const html = document.documentElement
+      if (window.__hozinDark) {
+        html.style.filter = ''
+        window.__hozinDark = false
+      } else {
+        html.style.filter = 'invert(1) hue-rotate(180deg)'
+        window.__hozinDark = true
+      }
+    },
+    desc: 'Toggle filter invert + hue-rotate agar halaman terlihat gelap',
+  },
+  {
+    name: '🇮🇩 Unblock klik kanan & copy',
+    fn() {
+      document.oncontextmenu = null
+      document.oncopy = null
+      document.oncut = null
+      document.onpaste = null
+      document.onselectstart = null
+      document.ondragstart = null
+      const attrs = [
+        'oncontextmenu',
+        'oncopy',
+        'oncut',
+        'onpaste',
+        'onselectstart',
+        'ondragstart',
+      ]
+      const els = document.querySelectorAll(attrs.map((a) => '[' + a + ']').join(','))
+      for (let i = 0; i < els.length; i++) {
+        for (let j = 0; j < attrs.length; j++) els[i].removeAttribute(attrs[j])
+      }
+      if (unblockStyle) {
+        evalCss.remove(unblockStyle)
+        unblockStyle = null
+      } else {
+        unblockStyle = evalCss(
+          '* { user-select: text !important; -webkit-user-select: text !important; }',
+          document.head
+        )
+      }
+    },
+    desc: 'Aktifkan klik kanan, copy, dan seleksi teks yang diblokir situs',
+  },
+  {
+    name: '🇮🇩 Scroll otomatis',
+    fn() {
+      if (window.__hozinAutoScroll) {
+        clearInterval(window.__hozinAutoScroll)
+        window.__hozinAutoScroll = 0
+      } else {
+        window.__hozinAutoScroll = setInterval(() => {
+          window.scrollBy({ top: 2, behavior: 'smooth' })
+        }, 50)
+      }
+    },
+    desc: 'Toggle scroll halaman otomatis ke bawah (jalankan lagi untuk berhenti)',
+  },
+  {
+    name: '🇮🇩 Hapus overlay paywall',
+    fn() {
+      const area = window.innerWidth * window.innerHeight
+      const els = document.querySelectorAll('body *')
+      let removed = 0
+      for (let i = 0; i < els.length; i++) {
+        const el = els[i]
+        const cs = getComputedStyle(el)
+        if (cs.position !== 'fixed') continue
+        const z = parseInt(cs.zIndex, 10)
+        if (isNaN(z) || z < 100) continue
+        const r = el.getBoundingClientRect()
+        if (r.width * r.height > area * 0.7) {
+          el.remove()
+          removed++
+        }
+      }
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      logger.info('Overlay paywall dihapus: ' + removed)
+    },
+    desc: 'Hapus elemen fixed ber-z-index tinggi yang menutupi >70% layar',
+  },
+  {
+    name: '🇮🇩 Kumpulkan URL gambar',
+    fn() {
+      const urls = []
+      const imgs = document.querySelectorAll('img')
+      for (let i = 0; i < imgs.length; i++) {
+        const src = imgs[i].currentSrc || imgs[i].src
+        if (src && urls.indexOf(src) < 0) urls.push(src)
+      }
+      if (!urls.length) {
+        logger.info('Tidak ada gambar ditemukan')
+        return
+      }
+      const text = urls.join('\n')
+      const done = () => logger.info(urls.length + ' URL gambar disalin')
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, () => {
+          window.prompt('Salin manual (' + urls.length + ' URL):', text)
+        })
+      } else {
+        window.prompt('Salin manual (' + urls.length + ' URL):', text)
+      }
+    },
+    desc: 'Kumpulkan semua URL gambar unik lalu salin ke clipboard',
   },
 ]
 

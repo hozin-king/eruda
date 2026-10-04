@@ -1,0 +1,142 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#websocket {
+  .wrap {
+    @include absolute();
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: $font-size-s;
+  }
+  .list,
+  .msgs {
+    flex: 1;
+    @include overflow-auto(y);
+  }
+  .empty {
+    padding: 32px 16px;
+    text-align: center;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+  .sock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    &:active {
+      background: var(--darker-background);
+    }
+  }
+  .st {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  .st.open {
+    color: #4caf50;
+  }
+  .st.closed {
+    opacity: 0.5;
+  }
+  .st.pending {
+    color: #ff9800;
+  }
+  .url {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: monospace;
+    font-size: 12px;
+  }
+  .count {
+    flex-shrink: 0;
+    font-size: 12px;
+    opacity: 0.6;
+  }
+  .btn {
+    padding: 6px 12px;
+    margin: 8px 0 0 8px;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    &:active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+  .sock-url {
+    padding: 8px;
+    font-family: monospace;
+    font-size: 12px;
+    word-break: break-all;
+    border-bottom: 1px solid var(--border);
+    opacity: 0.8;
+  }
+  .msg {
+    border-bottom: 1px solid var(--border);
+    padding: 6px 8px;
+    cursor: pointer;
+  }
+  .msg-head {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .dir {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #fff;
+  }
+  .dir.in {
+    background: #4caf50;
+  }
+  .dir.out {
+    background: #2196f3;
+  }
+  .time {
+    flex-shrink: 0;
+    font-size: 11px;
+    opacity: 0.6;
+    font-family: monospace;
+  }
+  .preview {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: monospace;
+    font-size: 12px;
+  }
+  .full {
+    margin: 6px 0;
+    padding: 8px;
+    font-size: 11px;
+    line-height: 1.5;
+    font-family: monospace;
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .copy-msg {
+    margin: 0 0 4px;
+  }
+}

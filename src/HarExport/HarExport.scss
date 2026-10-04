@@ -1,0 +1,68 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#har {
+  .wrap {
+    @include absolute();
+    padding: 16px;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: $font-size-s;
+    @include overflow-auto(y);
+  }
+  .stat {
+    text-align: center;
+    padding: 24px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--darker-background);
+  }
+  .big {
+    font-size: 42px;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .label {
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+  .chk {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0;
+    cursor: pointer;
+    input {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    flex: 1;
+    padding: 10px;
+    font-size: $font-size;
+    color: var(--foreground);
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    &:active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+  .btn.export {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .note {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: 0.6;
+  }
+}

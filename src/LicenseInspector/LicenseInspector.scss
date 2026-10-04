@@ -1,0 +1,82 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#licenses {
+  @include overflow-auto(y);
+  .wrap {
+    padding: 10px;
+  }
+  .banner {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    color: var(--foreground);
+    opacity: 0.9;
+  }
+  .refresh-btn {
+    @include control();
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .empty {
+    text-align: center;
+    padding: 24px 16px;
+    font-size: 13px;
+    color: var(--foreground);
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+  .summary {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    th {
+      text-align: left;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      color: var(--foreground);
+      opacity: 0.7;
+      font-weight: normal;
+    }
+    td {
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+      color: var(--foreground);
+      vertical-align: top;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+  .col-lib {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .license {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .col-src {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    opacity: 0.7;
+  }
+}

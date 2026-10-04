@@ -1,0 +1,105 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#recorder {
+  @include overflow-auto(y);
+  padding: $padding;
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .btn {
+    @include control();
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--darker-background);
+    color: var(--foreground);
+    font-size: $font-size;
+    cursor: pointer;
+    &:active {
+      background: var(--highlight);
+      color: var(--select-foreground);
+    }
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    &.rec {
+      color: #e5484d;
+      font-weight: bold;
+    }
+    &.stop {
+      color: #e5484d;
+      font-weight: bold;
+      border-color: #e5484d;
+    }
+    &.danger {
+      color: #e5484d;
+    }
+  }
+  .hint {
+    font-size: $font-size-s;
+    color: var(--foreground);
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .list {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .empty {
+    padding: 24px 12px;
+    text-align: center;
+    font-size: $font-size-s;
+    color: var(--foreground);
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: $font-size-s;
+    &:last-child {
+      border-bottom: none;
+    }
+    &.active {
+      background: var(--highlight);
+      color: var(--select-foreground);
+    }
+  }
+  .idx {
+    min-width: 20px;
+    opacity: 0.6;
+  }
+  .type {
+    padding: 1px 7px;
+    border-radius: 10px;
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .sel {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: monospace;
+    opacity: 0.85;
+  }
+  .time {
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+}
+
+.safe-area #recorder {
+  @include safe-area(padding-bottom, 10px);
+}

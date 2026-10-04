@@ -1,0 +1,149 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#perf {
+  @include overflow-auto(y);
+  padding: 8px;
+
+  .toolbar {
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  .btn-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .note {
+    font-size: 11px;
+    color: var(--foreground);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--foreground);
+    font-size: 13px;
+    padding: 32px 16px;
+    line-height: 1.6;
+  }
+
+  .score-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+
+  .score {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .score-cap {
+    font-size: 12px;
+    color: var(--foreground);
+    line-height: 1.5;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .metric {
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .k {
+    font-size: 11px;
+    color: var(--foreground);
+  }
+
+  .v {
+    font-size: 15px;
+    color: var(--primary);
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 12px 0 6px;
+  }
+
+  .waterfall {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .wf-row {
+    background: var(--darker-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+  }
+
+  .wf-name {
+    font-size: 11px;
+    color: var(--primary);
+    word-break: break-all;
+    user-select: text;
+    margin-bottom: 4px;
+  }
+
+  .wf-track {
+    position: relative;
+    height: 10px;
+    background: var(--background);
+    border-radius: 3px;
+    margin-bottom: 4px;
+  }
+
+  .wf-bar {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    min-width: 2px;
+  }
+
+  .wf-meta {
+    font-size: 11px;
+    color: var(--foreground);
+    font-variant-numeric: tabular-nums;
+  }
+}
