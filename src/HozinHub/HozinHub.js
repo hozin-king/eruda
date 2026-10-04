@@ -34,6 +34,9 @@ const CATALOG = [
       { name: 'keys', icon: '🔑', label: 'Key Scanner', desc: 'Cari API key yang ke-expose' },
       { name: 'licenses', icon: '📜', label: 'Licenses', desc: 'Deteksi library JS + lisensinya' },
       { name: 'trackers', icon: '🕵️', label: 'Trackers', desc: 'Deteksi & blokir tracker/iklan' },
+      { name: 'phish', icon: '🎣', label: 'Phish Detector', desc: 'Deteksi exfil Telegram/Discord' },
+      { name: 'xss', icon: '🪲', label: 'XSS Scanner', desc: 'Pindai celah XSS ringan' },
+      { name: 'sqli', icon: '🧪', label: 'SQLi Checker', desc: 'Cek error DB heuristik' },
     ],
   },
   {

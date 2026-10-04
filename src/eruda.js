@@ -23,6 +23,9 @@ import PageAudit from './PageAudit/PageAudit'
 import KeyScanner from './KeyScanner/KeyScanner'
 import LicenseInspector from './LicenseInspector/LicenseInspector'
 import TrackerDetector from './TrackerDetector/TrackerDetector'
+import PhishDetector from './PhishDetector/PhishDetector'
+import XssScanner from './XssScanner/XssScanner'
+import SqliChecker from './SqliChecker/SqliChecker'
 import CookieGetter from './CookieGetter/CookieGetter'
 import IdbInspector from './IdbInspector/IdbInspector'
 import SessionRecorder from './SessionRecorder/SessionRecorder'
@@ -67,6 +70,9 @@ const HOZIN_TOOLS = {
   keys: KeyScanner,
   licenses: LicenseInspector,
   trackers: TrackerDetector,
+  phish: PhishDetector,
+  xss: XssScanner,
+  sqli: SqliChecker,
   cookies: CookieGetter,
   indexeddb: IdbInspector,
   recorder: SessionRecorder,
@@ -157,6 +163,9 @@ export default {
   KeyScanner,
   LicenseInspector,
   TrackerDetector,
+  PhishDetector,
+  XssScanner,
+  SqliChecker,
   CookieGetter,
   IdbInspector,
   SessionRecorder,

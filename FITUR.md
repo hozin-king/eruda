@@ -39,6 +39,9 @@ Buka **tab `hub`** sebagai home: grid berkategori berisi semua tool custom.
 | `keys` — Key Scanner | Pindai script inline & eksternal dengan 9 pola regex (Google API, AWS, GitHub token, Slack, Stripe, dsb). | **Scan halaman** → kartu temuan (nilai termask, tap Copy untuk full). |
 | `licenses` — Licenses | Deteksi library JS yang dipakai halaman (24 library dikenal) + lisensinya. | Buka tab → otomatis deteksi dari src script & global window. |
 | `trackers` — Trackers | Deteksi tracker/iklan (15 pola domain) yang dimuat halaman + blokir per domain sekali klik. | Buka tab saat browsing → tap **Block** di domain yang mengganggu; kelola di seksi Diblokir. |
+| `phish` — Phish Detector | Deteksi pola exfiltration phising: Telegram Bot API (ekstrak token+method+chat_id), Discord webhook, form submit lintas domain + pantau live request ke api.telegram.org. | **Scan halaman** → kartu temuan (token termask) + panduan cara lapor bot. |
+| `xss` — XSS Scanner | Uji refleksi canary aman (maks 10 request GET read-only) di parameter URL & field form + pindai pola sink DOM berbahaya (innerHTML, eval, document.write…) yang terhubung ke source penyerang. | **Pindai vektor input** → daftar terefleksi; **Pindai sink DOM** → pola + level risiko. |
+| `sqli` — SQLi Checker | Uji parameter query/form GET dengan tanda kutip non-destruktif, cari signature error MySQL/PostgreSQL/MSSQL/Oracle/SQLite di response. | **Cek parameter** → kartu indikasi + cuplikan error. |
 
 ## Penyimpanan
 
@@ -76,4 +79,5 @@ Buka **tab `hub`** sebagai home: grid berkategori berisi semua tool custom.
 - **Perf Audit**: angka aproksimasi (bukan Lighthouse penuh); LCP/CLS/TBT butuh halaman aktif saat tab terbuka.
 - **Interceptor/Mock/Tracker-block** bekerja pada fetch & XHR; request yang dikirim via `<img>`/`<link>`/navigasi biasa tidak terpengaruh.
 - **Media Sniffer**: tombol Download mengandalkan browser (cross-origin bisa ditolak → gunakan Copy URL + Buka).
+- **Phish/XSS/SQLi (Security Lab)** hanya untuk situs milik sendiri / yang memberi izin testing. Hasil nihil ≠ aman — ini heuristik ringan, bukan pengganti Burp/ZAP. Exfiltration via backend/server tidak terlihat dari browser. Uji refleksi & SQLi memakai request GET read-only (maks 10, ada jeda), tidak submit form & tidak mengubah data.
 - **Session Recorder** paling andal di-replay di halaman yang sama; selector bisa berubah bila DOM dinamis.
