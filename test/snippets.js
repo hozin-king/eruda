@@ -8,11 +8,14 @@ describe('snippets', function () {
 
       let $body = $('body')
       let $btn = $tool.find('.eruda-run').eq(0)
+      // Newer Chrome serializes the initial outline-width as '3px'
+      // instead of '0px', so compare against the initial computed value.
+      let initialOutlineWidth = $body.css('outlineWidth')
 
       $btn.click()
       expect($body).toHaveCss({ outlineWidth: '2px' })
       $btn.click()
-      expect($body).toHaveCss({ outlineWidth: '0px' })
+      expect($body.css('outlineWidth')).toBe(initialOutlineWidth)
     })
 
     it('refresh page', function () {
